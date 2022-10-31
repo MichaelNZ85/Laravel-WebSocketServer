@@ -28,10 +28,7 @@ ENV LARAVEL_PATH=/srv/app
 WORKDIR $LARAVEL_PATH
 
 # configure supervisord
-RUN echo "[program:ws.spinningcube] \
-command=${LARAVEL_PATH}/artisan websockets:serve \
-autostart=true \
-autorestart=true" >> /etc/supervisor/conf.d/ws.spinningcube.co.nz.conf
+COPY ./.deploy/config/ws.spinningcube.co.nz.conf /etc/supervisord/conf.d/
 
 # Add non-root user: 'app'
 ARG NON_ROOT_GROUP=${NON_ROOT_GROUP:-app}
