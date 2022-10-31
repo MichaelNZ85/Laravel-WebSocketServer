@@ -11,8 +11,6 @@ RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache redis uuid
 # Install supervisord
 RUN apk add --no-cache supervisor
 
-
-
 # Install supervisord implementation
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
 
@@ -33,7 +31,7 @@ WORKDIR $LARAVEL_PATH
 RUN echo "[program:ws.spinningcube] \
 command=${LARAVEL_PATH}/artisan websockets:serve \
 autostart=true \
-autorestart=true" >> ./etc/supervisor/conf.d/ws.spinningcube.co.nz.conf
+autorestart=true" >> /etc/supervisor/conf.d/ws.spinningcube.co.nz.conf
 
 # Add non-root user: 'app'
 ARG NON_ROOT_GROUP=${NON_ROOT_GROUP:-app}
